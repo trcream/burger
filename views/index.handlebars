@@ -1,1 +1,68 @@
-Testing Burger Route SUCCESS!
+<h2>Avalaible Burgers</h2>
+<ul>
+    {{#each burgers}}
+    {{#unless devoured}}
+    <li>{{burger_name}}
+        <button class="devour" data-id="{{id}}">Devour!</button>
+    </li>
+    {{/unless}}
+    {{/each}}
+</ul>
+
+<h2>Devoured Burgers</h2>
+<ul>
+    {{#each burgers}}
+    {{#if devoured}}
+    <li>
+        {{burger_name}}
+    </li>
+    {{/if}}
+    {{/each}}
+</ul>
+
+<form id="create-burger-form" action="/api/burgers" method="POST">
+    <input type="text" name="burger_name">
+    <button>Add Burger</button>
+</form>
+
+<script>
+
+    $("#create-burger-form").on("submit", (e) => {
+
+        e.preventDefault()
+
+        const burgerData = {
+            burger_name: $('[name="burger_name"]').val()
+        };
+
+        $.ajax({
+            url: "/api/burgers"
+            method: "POST",
+            data: burgerData
+        }).then(() => {
+
+            location.reload()
+        })
+    });
+
+    $(".devour").on("click", function () {
+
+        const burgerId = ${ this}.data("id");
+        const updateRoute = "/api/burgers/" + burgerId;
+        const burgerData = {
+            devoured: true
+        }
+        $.ajax({
+            url: updateRoute
+            method: "PUT",
+            data: {
+                burgerData
+            }
+        }).then(() => {
+            location.reload()
+        })
+        console.log(burgerId)
+
+    })
+
+</script>

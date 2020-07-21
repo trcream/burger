@@ -16,11 +16,11 @@ const orm = {
       });
     // INSERT into tableName SET values
   },
-  updateOne(tableName, newValue, targetId, cb) {
-    // Update tableName SETL VALUES WHERE id = targetid
+  updateOne(tableName, newValues, targetId, cb) {
+    // Update tableName SET VALUES WHERE id = targetid
     connection.query(
       "UPDATE ?? SET ? WHERE id = ?",
-      [tableName, newValue, targetId],
+      [tableName, newValues, targetId],
       (err, results) => {
         if (err) throw error;
         cb(results);

@@ -26,6 +26,7 @@
 </form>
 
 <script>
+    
 
     $("#create-burger-form").on("submit", (e) => {
 
@@ -36,33 +37,32 @@
         };
 
         $.ajax({
-            url: "/api/burgers"
+            url: "/api/burgers",
             method: "POST",
             data: burgerData
         }).then(() => {
 
-            location.reload()
-        })
+            location.reload();
+        });
     });
 
-    $(".devour").on("click", function () {
+    $(".devour").on("click", function() {
 
-        const burgerId = ${ this}.data("id");
+        const burgerId = $(this).data("id");
+              console.log(burgerId);
         const updateRoute = "/api/burgers/" + burgerId;
+  
         const burgerData = {
-            devoured: true
-        }
+            devoured: 1
+        };
         $.ajax({
-            url: updateRoute
+            url: updateRoute,
             method: "PUT",
-            data: {
-                burgerData
-            }
-        }).then(() => {
-            location.reload()
-        })
-        console.log(burgerId)
+            data: burgerData
+            }).then(() => {
+                location.reload()
+        });
+    });
 
-    })
 
-</script>
+</script>;
